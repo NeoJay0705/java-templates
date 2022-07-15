@@ -40,6 +40,15 @@ public class EchoController {
     private String alias2;
     @Autowired
     private Properties appProperties;
+    private int num = 0;
+
+    /**
+     * Singleton controller
+     */
+    @RequestMapping("increament")
+    public int add() {
+        return ++num;
+    }
 
     @RequestMapping("/title")
     public String title() {
