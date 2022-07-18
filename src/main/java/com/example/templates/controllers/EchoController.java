@@ -1,5 +1,7 @@
 package com.example.templates.controllers;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,8 +11,10 @@ import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.templates.data.EchoData;
 
@@ -161,6 +166,13 @@ public class EchoController {
         int a = 1;
         if (a == 1) throw new NullPointerException("123");
         return "nullexpreturn";
+    }
+
+    @RequestMapping(value = "redirect")
+    public ResponseEntity<Object> redirect() throws URISyntaxException {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setLocation(new URI("https://www.google.com"));
+        return new ResponseEntity<>(httpHeaders, HttpStatus.FOUND);
     }
 
     /**
