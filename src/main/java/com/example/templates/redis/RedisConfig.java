@@ -52,7 +52,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
-        RedisStandaloneConfiguration config = new RedisStandaloneConfiguration("172.28.0.4", 6379);
+        RedisStandaloneConfiguration config = new RedisStandaloneConfiguration("10.5.0.5", 6379);
         return new JedisConnectionFactory(config);
     }
 

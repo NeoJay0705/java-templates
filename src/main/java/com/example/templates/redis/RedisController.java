@@ -1,12 +1,11 @@
 package com.example.templates.redis;
 
-import java.util.ArrayList;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,11 +17,13 @@ public class RedisController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private RedisUserRepository userRepos;
-    private RedisService rs;
+    private RedisService service;
+    private RedisTemplate redisTemplate;
 
-    public RedisController(RedisUserRepository userRepos, RedisService rs) {
+    public RedisController(RedisUserRepository userRepos, RedisService service, RedisTemplate redisTemplate) {
         this.userRepos = userRepos;
-        this.rs = rs;
+        this.service = service;
+        this.redisTemplate = redisTemplate;
     }
 
     @Cacheable(value = "yyy", key = "'ys '+#x+#y", condition = "#x > 100") 
@@ -52,6 +53,17 @@ public class RedisController {
     @CacheEvict()
     public void delete() {
 
+    }
+
+    @RequestMapping("service")
+    public String cacheService() {
+        return "this.service.getCache(\"123\", \"5667\")";
+    }
+
+    @RequestMapping("template")
+    public Object template() {
+        // redisTemplate.opsForValue().set("a", 2);
+        return redisTemplate.hasKey("a");
     }
 
     @CacheEvict(value = "xxx", key = "'xs '+#x+#y")

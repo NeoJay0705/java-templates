@@ -1,5 +1,6 @@
 package com.example.templates.controllers;
 
+import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,4 +18,15 @@ public class AdviceController extends ResponseEntityExceptionHandler {
           new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 
+    @ExceptionHandler(value = {Exception.class})
+    public ResponseEntity<Object> exception(Exception ex, WebRequest request) {
+        return handleExceptionInternal(ex, "Exception", 
+          new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+    }
+
+    @ExceptionHandler(value = {CustomizedException.class, CustomizedException2.class})
+    public ResponseEntity<Object> customizedException(Exception ex, WebRequest request) {
+        return handleExceptionInternal(ex, "CustomizedException", 
+          new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
 }
