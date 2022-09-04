@@ -64,9 +64,9 @@
 
     <!-- Testing -->
     <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.11</version>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>5.4.0</version>
         <scope>test</scope>
     </dependency>
     <dependency>
@@ -94,10 +94,22 @@
       <artifactId>postgresql</artifactId>
       <version>42.3.6</version>
     </dependency>
-    <dependency>
+    <!-- <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-cassandra</artifactId>
-    </dependency>
+    </dependency> -->
+    <!-- <dependency>
+        <groupId>org.cassandraunit</groupId>
+        <artifactId>cassandra-unit-spring</artifactId>
+        <version>4.3.1.0</version>
+        <scope>test</scope>
+        <exclusions>
+            <exclusion>
+                <groupId>org.cassandraunit</groupId>
+                <artifactId>cassandra-unit</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency> -->
 
     <!-- JPA -->
     <dependency>
@@ -117,7 +129,7 @@
     </dependency>
     
     <!-- Cache -->
-    <dependency>
+    <!-- <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-cache</artifactId>
         <version>2.4.0</version>
@@ -126,13 +138,35 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-redis</artifactId>
       <version>2.5.1</version>
-    </dependency>
+    </dependency> -->
     <dependency>
       <groupId>redis.clients</groupId>
       <artifactId>jedis</artifactId>
       <version>3.8.0</version>
     </dependency>
 
+    <!-- AOP -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-aop</artifactId>
+    </dependency>
+
+    <!-- WebSocket -->
+    <dependency>
+      <groupId>javax.websocket</groupId>
+      <artifactId>javax.websocket-api</artifactId>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-websocket</artifactId>
+      <version>5.2.2.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-messaging</artifactId>
+      <version>5.2.2.RELEASE</version>
+    </dependency>
 
     <!-- Dev tools -->
     <dependency>
@@ -148,13 +182,10 @@
         <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
-            <dependencies>
-                <dependency>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>springloaded</artifactId>
-                    <version>${spring-loaded.version}</version>
-                </dependency>
-            </dependencies>
+            <configuration>
+              <mainClass>com.example.templates.Boot</mainClass>
+              <layout>ZIP</layout>
+            </configuration>
         </plugin>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
