@@ -24,6 +24,7 @@ public class JpaConfig {
 		lfb.setPersistenceProviderClass(HibernatePersistenceProvider.class);
 		lfb.setPackagesToScan("com.example.templates.jpa.model");
 		lfb.setJpaProperties(hibernateProps());
+        lfb.setJpaDialect(new CustomHibernateJpaDialect());
 		return lfb;
 	}
 

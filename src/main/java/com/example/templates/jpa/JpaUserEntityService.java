@@ -1,5 +1,6 @@
 package com.example.templates.jpa;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.TypedSort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.templates.jpa.model.UserEntity;
@@ -53,11 +55,12 @@ public class JpaUserEntityService {
         return users;
     }
 
-    @Transactional
+    @Transactional(noRollbackFor = RuntimeException.class, isolation = Isolation.REPEATABLE_READ)
     public List<UserEntity> savebyNameOrAge(UserEntity user) {
         List<UserEntity> users = new ArrayList<>();
         this.userRepository.save(user);
         this.userRepository.findByName(user.getName()).forEach(users::add);
+        // if (1==1) throw new RuntimeException("rollback");
         // this.userRepository.fin
         return users;
     }
